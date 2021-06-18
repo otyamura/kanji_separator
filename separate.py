@@ -7,11 +7,9 @@ f.close()
 
 separate = list()
 
-for i in range(0, len(data)):
+for i in range(0, len(data), 2):
     isNum = int()
     isNum = re.sub(r"\D", "", data[i])
-    if isNum == '':
-        continue
     isNum = int(isNum)
     if (isNum >= 2):
         separate.append(data[i])
@@ -20,3 +18,15 @@ for i in range(0, len(data)):
 f = open('separated.txt', 'w')
 f.writelines(separate)
 f.close()
+
+# 正規表現用に漢字のみをパイプでつなげる
+
+kanjis = str()
+
+for i in range(1, len(separate), 2):
+    kanjis += separate[i].replace(' ', '|')
+
+kanjis = kanjis.replace('\n', '|')
+kanjis = kanjis.rstrip('|')
+
+print(kanjis)
